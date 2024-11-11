@@ -10,11 +10,6 @@ ENV NODE_ENV $NODE_ENV
 WORKDIR /usr/src/app
 # Download dependencies as a separate step to take advantage of Docker's caching.
 
-# RUN --mount=type=bind,source=package.json,target=package.json \
-#     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-#     --mount=type=cache,target=/root/.npm \
-#     npm ci --omit=dev
-
 COPY package.json package-lock.json* ./
 
 RUN npm ci && npm cache clean --force

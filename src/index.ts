@@ -7,6 +7,11 @@ import cors from "cors";
 import mongoose from "mongoose";
 import router from "./router/index.js";
 import swaggerDocs from "./utils/swagger.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+const PORT = parseInt(process.env.PORT as string, 10) || 8083;
+const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
 
@@ -21,16 +26,13 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-server.listen(8083, () => {
-  console.log("Server running on http://localhost:8083/");
-  swaggerDocs(app, 8083);
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}/`);
+  swaggerDocs(app, PORT);
 });
 
-const MONGO_URL =
-  "mongodb+srv://madoowl:6bNZkBYWRQ4PpPSH@cluster0.dx3lp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URI);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use("/", router());

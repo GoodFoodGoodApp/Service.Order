@@ -1,6 +1,16 @@
-import mongoose from 'mongoose';
+import {Schema, model, connect } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
+interface IUser {
+  username: string;
+  email: string;
+  authentication: {
+    password: string;
+    salt: string;
+    sessionToken: string;
+  };
+}
+
+const UserSchema = new Schema<IUser>({
   username: {
     type: String,
     required: true,
@@ -27,7 +37,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel = mongoose.model('User', UserSchema);
+export const UserModel = model<IUser>('User', UserSchema);
 
 export const getUsers = () => UserModel.find();
 export const getUserByEmail = (email: string) => UserModel.findOne({ email });

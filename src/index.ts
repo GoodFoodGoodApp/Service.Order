@@ -6,6 +6,7 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 import router from "./router/index.js";
+import swaggerDocs from "./utils/swagger.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ const server = http.createServer(app);
 
 server.listen(8083, () => {
   console.log("Server running on http://localhost:8083/");
+  swaggerDocs(app, 8083);
 });
 
 const MONGO_URL =

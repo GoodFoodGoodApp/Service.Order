@@ -7,5 +7,13 @@
     "sourceMap": true,
     "noImplicitAny": true
   },
+  "strict": true,
+  "esModuleInterop": true,
+  "skipLibCheck": false, // Enable full type checking
+  "forceConsistentCasingInFileNames": true,
+  "resolveJsonModule": true,
+  "types": ["node"],
+  "typeRoots": ["node_modules/@types"],
+  "exclude": ["node_modules"],
   "include": ["src/**/*"]
 }

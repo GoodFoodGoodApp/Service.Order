@@ -1,5 +1,5 @@
-import { OrderModel } from "models/index.js";
-import { IOrder, OrderStatus } from "models/interfaces/order.interface.js";
+import { OrderModel } from "../models/index.js";
+import { IOrder, OrderStatus } from "../models/interfaces/order.interface.js";
 
 class OrderService {
   // Create a new order

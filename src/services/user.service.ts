@@ -1,4 +1,4 @@
-import { UserModel } from "models/index.js";
+import { UserModel } from "../models/index.js";
 
 class UserService {
   getUsers = () => UserModel.find();

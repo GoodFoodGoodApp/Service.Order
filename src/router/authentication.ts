@@ -38,6 +38,7 @@ export default (router: express.Router) => {
    *         description: Internal server error
    */
   router.post("/auth/register", register);
+  
   /**
    * @swagger
    * /auth/login:

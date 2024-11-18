@@ -1,6 +1,9 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../db/users.js";
+// import userService from "services/user.service.js";
 import { authentication, random } from "../helpers/index.js";
+import services from "../services/index.js";
+
+const { UserService } = services;
 
 export const register = async (
   req: express.Request,
@@ -40,7 +43,7 @@ export const register = async (
     }
 
     // Check for existing user
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await UserService.getUserByEmail(email);
     if (existingUser) {
       res.status(409).json({
         error: "User already exists",
@@ -52,7 +55,7 @@ export const register = async (
     const salt = random();
     const hashedPassword = authentication(salt, password);
 
-    const user = await createUser({
+    const user = await UserService.createUser({
       email: email.toLowerCase(), // Normalize email
       username: username.trim(), // Remove whitespace
       authentication: {
@@ -103,7 +106,7 @@ export const login = async (
             });
             return;
         }
-        const user = await getUserByEmail(email).select("+authentication.salt +authentication.password");
+        const user = await UserService.getUserByEmail(email).select("+authentication.salt +authentication.password");
 
         if (!user)
         {
